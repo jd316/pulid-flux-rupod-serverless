@@ -35,6 +35,7 @@ RUN cd custom_nodes && \
 RUN mkdir -p /comfyui/models/pulid_flux && \
     mkdir -p /comfyui/models/insightface && \
     mkdir -p /comfyui/models/loras && \
+    mkdir -p /comfyui/models/FLUX1 && \
     mkdir -p /comfyui/input
 
 # Download Flux GGUF model
