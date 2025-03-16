@@ -11,10 +11,10 @@ RUN apt-get update && apt-get install -y \
 # Install custom nodes
 WORKDIR /comfyui
 RUN cd custom_nodes && \
-    git clone git://github.com/LiamCX/ComfyUI-GGUF-Loader.git && \
-    git clone git://github.com/vxid/comfyui_pulid_flux_ll && \
-    git clone git://github.com/rgthree/rgthree-comfy && \
-    git clone git://github.com/pythongosssss/ComfyUI-Custom-Scripts
+    git clone https://github.com/LiamCX/ComfyUI-GGUF-Loader.git && \
+    git clone https://github.com/vxid/comfyui_pulid_flux_ll && \
+    git clone https://github.com/rgthree/rgthree-comfy && \
+    git clone https://github.com/pythongosssss/ComfyUI-Custom-Scripts
 
 # Create required directories
 RUN mkdir -p /comfyui/models/pulid_flux && \
