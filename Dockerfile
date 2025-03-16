@@ -17,6 +17,9 @@ RUN git config --global url."https://".insteadOf git:// && \
 
 # Install custom nodes
 WORKDIR /comfyui
+# Make sure custom_nodes directory exists
+RUN mkdir -p /comfyui/custom_nodes
+
 # Using wget to download zip archives instead of git clone to avoid connectivity issues
 RUN cd custom_nodes && \
     wget -q https://github.com/LiamCX/ComfyUI-GGUF-Loader/archive/refs/heads/main.zip -O gguf.zip && \
