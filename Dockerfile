@@ -22,13 +22,14 @@ RUN mkdir -p /comfyui/custom_nodes
 
 # Using wget to download zip archives instead of git clone to avoid connectivity issues
 RUN cd custom_nodes && \
-    wget -q https://github.com/LiamCX/ComfyUI-GGUF-Loader/archive/refs/heads/main.zip -O gguf.zip && \
+    # Add retry and timeout options to wget commands
+    wget -q --tries=5 --timeout=30 --waitretry=5 https://github.com/LiamCX/ComfyUI-GGUF-Loader/archive/refs/heads/main.zip -O gguf.zip && \
     unzip -q gguf.zip && mv ComfyUI-GGUF-Loader-main ComfyUI-GGUF-Loader && rm gguf.zip && \
-    wget -q https://github.com/vxid/comfyui_pulid_flux_ll/archive/refs/heads/main.zip -O flux.zip && \
+    wget -q --tries=5 --timeout=30 --waitretry=5 https://github.com/vxid/comfyui_pulid_flux_ll/archive/refs/heads/main.zip -O flux.zip && \
     unzip -q flux.zip && mv comfyui_pulid_flux_ll-main comfyui_pulid_flux_ll && rm flux.zip && \
-    wget -q https://github.com/rgthree/rgthree-comfy/archive/refs/heads/main.zip -O rgthree.zip && \
+    wget -q --tries=5 --timeout=30 --waitretry=5 https://github.com/rgthree/rgthree-comfy/archive/refs/heads/main.zip -O rgthree.zip && \
     unzip -q rgthree.zip && mv rgthree-comfy-main rgthree-comfy && rm rgthree.zip && \
-    wget -q https://github.com/pythongosssss/ComfyUI-Custom-Scripts/archive/refs/heads/main.zip -O scripts.zip && \
+    wget -q --tries=5 --timeout=30 --waitretry=5 https://github.com/pythongosssss/ComfyUI-Custom-Scripts/archive/refs/heads/main.zip -O scripts.zip && \
     unzip -q scripts.zip && mv ComfyUI-Custom-Scripts-main ComfyUI-Custom-Scripts && rm scripts.zip
 
 # Create required directories
