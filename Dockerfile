@@ -22,15 +22,24 @@ RUN mkdir -p /comfyui/custom_nodes
 
 # Using wget to download zip archives instead of git clone to avoid connectivity issues
 RUN cd custom_nodes && \
-    # Add retry and timeout options to wget commands
-    wget -q --tries=5 --timeout=30 --waitretry=5 https://github.com/LiamCX/ComfyUI-GGUF-Loader/archive/refs/heads/main.zip -O gguf.zip && \
+    # More verbose output and robust download approach
+    echo "Downloading ComfyUI-GGUF-Loader..." && \
+    wget --verbose --tries=10 --timeout=60 --waitretry=10 --retry-connrefused --no-check-certificate \
+    https://github.com/LiamCX/ComfyUI-GGUF-Loader/archive/refs/heads/main.zip -O gguf.zip && \
     unzip -q gguf.zip && mv ComfyUI-GGUF-Loader-main ComfyUI-GGUF-Loader && rm gguf.zip && \
-    wget -q --tries=5 --timeout=30 --waitretry=5 https://github.com/vxid/comfyui_pulid_flux_ll/archive/refs/heads/main.zip -O flux.zip && \
+    echo "Downloading comfyui_pulid_flux_ll..." && \
+    wget --verbose --tries=10 --timeout=60 --waitretry=10 --retry-connrefused --no-check-certificate \
+    https://github.com/vxid/comfyui_pulid_flux_ll/archive/refs/heads/main.zip -O flux.zip && \
     unzip -q flux.zip && mv comfyui_pulid_flux_ll-main comfyui_pulid_flux_ll && rm flux.zip && \
-    wget -q --tries=5 --timeout=30 --waitretry=5 https://github.com/rgthree/rgthree-comfy/archive/refs/heads/main.zip -O rgthree.zip && \
+    echo "Downloading rgthree-comfy..." && \
+    wget --verbose --tries=10 --timeout=60 --waitretry=10 --retry-connrefused --no-check-certificate \
+    https://github.com/rgthree/rgthree-comfy/archive/refs/heads/main.zip -O rgthree.zip && \
     unzip -q rgthree.zip && mv rgthree-comfy-main rgthree-comfy && rm rgthree.zip && \
-    wget -q --tries=5 --timeout=30 --waitretry=5 https://github.com/pythongosssss/ComfyUI-Custom-Scripts/archive/refs/heads/main.zip -O scripts.zip && \
-    unzip -q scripts.zip && mv ComfyUI-Custom-Scripts-main ComfyUI-Custom-Scripts && rm scripts.zip
+    echo "Downloading ComfyUI-Custom-Scripts..." && \
+    wget --verbose --tries=10 --timeout=60 --waitretry=10 --retry-connrefused --no-check-certificate \
+    https://github.com/pythongosssss/ComfyUI-Custom-Scripts/archive/refs/heads/main.zip -O scripts.zip && \
+    unzip -q scripts.zip && mv ComfyUI-Custom-Scripts-main ComfyUI-Custom-Scripts && rm scripts.zip && \
+    echo "All custom nodes downloaded successfully"
 
 # Create required directories
 RUN mkdir -p /comfyui/models/pulid_flux && \
