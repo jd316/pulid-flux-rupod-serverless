@@ -135,8 +135,8 @@ The API supports both UI and API workflow formats from ComfyUI and will automati
 ## Troubleshooting
 
 - **Timeout errors**: Increase the execution timeout in your endpoint settings
-- **Out of memory**: Make sure you've allocated enough GPU resources 
-- **Build failures**: 
+- **Out of memory**: Make sure you've allocated enough GPU resources
+- **Build failures**:
   - The NSFW_master.safetensors URL in the Dockerfile has a limited lifespan. If building fails, you may need to update it with a new URL
   - If you experience network connectivity issues during build, the Dockerfile is designed to avoid Git operations which can be problematic in some environments
 
