@@ -8,6 +8,12 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
+# Configure git to use HTTPS instead of git protocol
+RUN git config --global url."https://".insteadOf git:// && \
+    git config --global http.postBuffer 524288000 && \
+    git config --global http.maxRequestBuffer 100M && \
+    git config --global core.compression 9
+
 # Install custom nodes
 WORKDIR /comfyui
 RUN cd custom_nodes && \
