@@ -39,10 +39,9 @@ RUN wget -O /comfyui/models/insightface/buffalo_l.zip https://github.com/deepins
 # Download FLUX Realism LORA
 RUN wget -O /comfyui/models/loras/flux_realism_lora.safetensors https://huggingface.co/aloneill/flux-loras/resolve/main/flux_realism_lora.safetensors
 
-# Create placeholder for NSFW Master LORA
-# Note: The file must be downloaded separately due to authentication requirements
-RUN touch /comfyui/models/loras/NSFW_master.safetensors && \
-    echo "PLACEHOLDER: Please upload your own NSFW_master.safetensors file to /comfyui/models/loras/ directory" > /comfyui/models/loras/NSFW_master_README.txt
+# Download NSFW Master Flux LoRA
+# WARNING: This is a temporary URL that will expire. If build fails, you'll need to update this URL.
+RUN wget -O /comfyui/models/loras/NSFW_master.safetensors "https://civitai-delivery-worker-prod.5ac0637cfd0766c97916cefa3764fbdf.r2.cloudflarestorage.com/model/2668870/nsfwMaster.sQJB.safetensors?X-Amz-Expires=86400&response-content-disposition=attachment%3B%20filename%3D%22NSFW_master.safetensors%22&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=e01358d793ad6966166af8b3064953ad/20250316/us-east-1/s3/aws4_request&X-Amz-Date=20250316T073511Z&X-Amz-SignedHeaders=host&X-Amz-Signature=11f5e6fe7b717f1439a0219bb1616085ce98a2a5c27c9e725f6efdba1e3d5ce6"
 
 # Install RunPod Python SDK
 RUN pip install runpod
@@ -314,12 +313,6 @@ def handler(event):\n\
 \n\
 # Start ComfyUI when the container starts\n\
 if __name__ == "__main__":\n\
-    # Check if NSFW_master.safetensors is empty/placeholder and warn user\n\
-    nsfw_path = "/comfyui/models/loras/NSFW_master.safetensors"\n\
-    if os.path.exists(nsfw_path) and os.path.getsize(nsfw_path) == 0:\n\
-        print("WARNING: NSFW_master.safetensors is a placeholder file.")\n\
-        print("For full functionality, please upload the actual file to /comfyui/models/loras/")\n\
-    \n\
     if not start_comfyui():\n\
         print("Failed to start ComfyUI. Exiting.")\n\
         exit(1)\n\
