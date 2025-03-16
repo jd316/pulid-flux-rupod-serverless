@@ -42,6 +42,15 @@ This repository contains the necessary files to deploy a PuLID FLUX API endpoint
 
 Once deployed, you can send requests to your endpoint using the RunPod API.
 
+## Technical Details
+
+This repository uses a specialized Dockerfile that's optimized for RunPod serverless deployment:
+
+- **No Git Dependencies**: Rather than using `git clone` operations which can fail in isolated build environments, the Dockerfile downloads repository ZIP archives directly.
+- **Custom Nodes**: All required ComfyUI custom nodes (GGUF-Loader, PuLID FLUX, rgthree-comfy, and Custom-Scripts) are installed automatically.
+- **Model Downloads**: All necessary AI models are downloaded during the build process.
+- **API Handler**: Includes a Python handler that interfaces between RunPod's API and ComfyUI's internal API.
+
 ## API Usage
 
 The API endpoint accepts the following parameters:
@@ -127,7 +136,9 @@ The API supports both UI and API workflow formats from ComfyUI and will automati
 
 - **Timeout errors**: Increase the execution timeout in your endpoint settings
 - **Out of memory**: Make sure you've allocated enough GPU resources 
-- **Build failures**: The NSFW_master.safetensors URL in the Dockerfile has a limited lifespan. If building fails, you may need to update it with a new URL
+- **Build failures**: 
+  - The NSFW_master.safetensors URL in the Dockerfile has a limited lifespan. If building fails, you may need to update it with a new URL
+  - If you experience network connectivity issues during build, the Dockerfile is designed to avoid Git operations which can be problematic in some environments
 
 ## License
 
@@ -142,4 +153,4 @@ This project uses several AI models and code components with their own respectiv
 - Original ComfyUI by [comfyanonymous](https://github.com/comfyanonymous/ComfyUI)
 - FLUX model by [Black Forest Labs](https://huggingface.co/black-forest-labs)
 - PuLID FLUX workflow from [The Future Thinker](https://thefuturethinker.org)
-- RunPod for the serverless platform 
+- RunPod for the serverless platform
